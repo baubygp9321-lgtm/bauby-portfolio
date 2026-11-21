@@ -1,10 +1,205 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 @import "tailwindcss";
 
+/* Tailwind v4 ignores tailwind.config.ts `darkMode`; class-based dark mode is declared here. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic colour tokens -> utilities such as bg-surface, text-fg, border-line, text-accent. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-on-accent: var(--on-accent);
+  --color-nav: var(--nav);
+}
+
+/* Brand default: futuristic dark navy / black with cyan + purple accents. */
+:root,
+.dark {
+  color-scheme: dark;
+  --bg: #05060f;
+  --bg-grad: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 52%, #000000 100%);
+  --fg: #f1f5f9;
+  --muted: #cbd5e1;
+  --subtle: #94a3b8;
+  --surface: rgb(255 255 255 / 0.05);
+  --surface-2: rgb(15 23 42 / 0.85);
+  --line: rgb(255 255 255 / 0.1);
+  --accent: #22d3ee;
+  --accent-2: #a855f7;
+  --on-accent: #05060f;
+  --nav: rgb(10 12 28 / 0.78);
+  --g1: #22d3ee;
+  --g2: #a855f7;
+  --g3: #ec4899;
+  --glow-1: rgb(6 182 212 / 0.22);
+  --glow-2: rgb(147 51 234 / 0.22);
+}
+
+.light {
+  color-scheme: light;
+  --bg: #f4f7fd;
+  --bg-grad: linear-gradient(135deg, #f8fbff 0%, #eef0ff 52%, #f4f7fd 100%);
+  --fg: #0b1023;
+  --muted: #334155;
+  --subtle: #5b6478;
+  --surface: rgb(255 255 255 / 0.72);
+  --surface-2: #ffffff;
+  --line: rgb(15 23 42 / 0.12);
+  --accent: #0e7490;
+  --accent-2: #7c3aed;
+  --on-accent: #ffffff;
+  --nav: rgb(255 255 255 / 0.82);
+  --g1: #0891b2;
+  --g2: #7c3aed;
+  --g3: #db2777;
+  --glow-1: rgb(6 182 212 / 0.16);
+  --glow-2: rgb(147 51 234 / 0.14);
+}
+
 html {
+  background: var(--bg);
+  color: var(--fg);
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Anchored sections stop below the fixed navbar. */
+section[id] {
+  scroll-margin-top: calc(4.5rem + env(safe-area-inset-top, 0px));
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Long words / URLs / emails wrap instead of widening their container. */
+h1,
+h2,
+h3,
+p,
+li,
+a,
+dd {
+  overflow-wrap: break-word;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background-image: linear-gradient(90deg, var(--g1), var(--g2));
+}
+
+@utility glass {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* Gradient hairline border used on hover for cards. */
+@utility glow-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--g1), transparent 40%, transparent 60%, var(--g2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  &:hover::before,
+  &:focus-within::before {
+    opacity: 1;
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-glow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -3%, 0) scale(1.06);
+  }
+}
+
+.caret {
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+.animate-float-glow {
+  animation: float-glow 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

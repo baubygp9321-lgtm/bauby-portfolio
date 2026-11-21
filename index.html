@@ -1,12 +1,54 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bauby-portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Bauby Gupta — Founder &amp; CEO, QySoul | AI, Quantum &amp; Full Stack Engineering</title>
+    <meta name="description" content="Bauby Gupta — Founder & CEO of QySoul, a research and innovation lab for Artificial Intelligence, Quantum Computing and next-generation science. Full Stack and Deep Tech engineer." />
+    <meta name="author" content="Bauby Gupta" />
+    <meta name="theme-color" content="#05060f" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="canonical" href="https://bauby-portfolio.vercel.app/" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph / social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bauby Gupta" />
+    <meta property="og:url" content="https://bauby-portfolio.vercel.app/" />
+    <meta property="og:title" content="Bauby Gupta — Founder & CEO, QySoul" />
+    <meta property="og:description" content="AI, Quantum Computing and Full Stack engineering. Founder & CEO of QySoul." />
+    <meta property="og:image" content="https://bauby-portfolio.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="QySoul — Quantum + AI Science" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bauby Gupta — Founder & CEO, QySoul" />
+    <meta name="twitter:description" content="AI, Quantum Computing and Full Stack engineering. Founder & CEO of QySoul." />
+    <meta name="twitter:image" content="https://bauby-portfolio.vercel.app/og-image.jpg" />
+
+    <!-- Apply the saved theme before first paint to avoid a flash of the wrong theme. Dark is the brand default. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light") {
+            var r = document.documentElement;
+            r.classList.remove("dark");
+            r.classList.add("light");
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <noscript>
+      <p style="padding:2rem;font-family:system-ui;color:#e2e8f0;background:#05060f">
+        Bauby Gupta — Founder &amp; CEO, QySoul. Please enable JavaScript to view this portfolio.
+        Contact: baubygp9321@gmail.com
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
